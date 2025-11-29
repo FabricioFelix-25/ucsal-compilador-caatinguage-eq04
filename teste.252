@@ -1,0 +1,8 @@
+program MeuPrograma
+declarations
+    integer  x;
+    integer  y;
+endDeclarations
+functions
+endFunctions
+endProgram
