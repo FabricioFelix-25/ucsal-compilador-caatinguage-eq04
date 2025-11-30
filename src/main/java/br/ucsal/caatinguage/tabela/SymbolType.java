@@ -1,12 +1,15 @@
 package br.ucsal.caatinguage.tabela;
 
-/**
- * Tipo do símbolo na tabela de símbolos.
- * Pode ser refinado conforme avançar nas etapas (var, func, param, etc.).
- */
 public enum SymbolType {
-    UNKNOWN,
-    VARIABLE,
-    FUNCTION,
-    PARAMETER
+    NO_TYPE("-"); // por enquanto "sem tipo", depois vocês podem ter VARIABLE, FUNCTION, PARAM, etc.
+
+    private final String code;
+
+    SymbolType(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
 }

@@ -10,10 +10,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.Scanner;
 
-/**
- * Programa principal do Static Checker.
- * Controla a chamada ao léxico e à tabela de símbolos e gera .LEX e .TAB.
- */
 public class MainStaticChecker {
 
     public static void main(String[] args) {
@@ -25,7 +21,7 @@ public class MainStaticChecker {
         }
     }
 
-    public void run(String[] args) throws IOException {
+    public void run(String[] args) throws Exception {
         String fileName = (args != null && args.length > 0)
                 ? args[0]
                 : askFileNameFromUser();
@@ -43,44 +39,39 @@ public class MainStaticChecker {
 
         String baseName = stripExtension(sourceFile.getName());
 
+        SimboloManager simbolos = new SimboloManager();
+
         try (Reader reader = new InputStreamReader(
                 new FileInputStream(sourceFile), StandardCharsets.UTF_8);
-             Lexer lexer = new Lexer(reader)) {
-
-            SimboloManager simbolos = new SimboloManager();
-            simbolos.initTables();
+             Lexer lexer = new Lexer(reader, simbolos)) {
 
             Path lexPath = Path.of(baseName + ".LEX");
             try (PrintWriter lexOut = new PrintWriter(
                     java.nio.file.Files.newBufferedWriter(lexPath, StandardCharsets.UTF_8))) {
 
-                lexOut.println("TYPE\tLEXEME\tLINE");
+                lexOut.println("ATOM\tLEXEME\tLINE");
 
                 while (true) {
-                    Token token = lexer.nextToken();
+                    Token token = lexer.proximoToken();
                     TokenType type = token.getType();
 
                     lexOut.printf("%s\t%s\t%d%n",
-                            type,
+                            type.getCodigo(),          // PRSxx / IDNxx / SRSxx
                             token.getLexeme(),
                             token.getLine());
-
-                    if (type == TokenType.IDENTIFIER) {
-                        handleIdentifier(simbolos, token);
-                    }
 
                     if (type == TokenType.EOF) {
                         break;
                     }
                 }
-
-                simbolos.generateTabReport(baseName);
             }
 
-         // aqui o reader.close() e o lexer.close() são chamados automaticamente
-            System.out.println("Análise concluída. Arquivos gerados: "
-                    + baseName + ".LEX e " + baseName + ".TAB");
+            // Gera .TAB com base na tabela de símbolos interna do SimboloManager
+            simbolos.gerarArquivoTAB(baseName);
         }
+
+        System.out.println("Análise concluída. Arquivos gerados: "
+                + baseName + ".LEX e " + baseName + ".TAB");
     }
 
     private String askFileNameFromUser() {
@@ -96,24 +87,4 @@ public class MainStaticChecker {
         }
         return name;
     }
-
-    private void handleIdentifier(SimboloManager simbolos, Token token) {
-        String lexeme = token.getLexeme();
-        int existingIndex = simbolos.findSymbol(lexeme);
-        if (existingIndex == -1) {
-            int lenBefore = lexeme.length();
-            int maxLen = 35; // conforme especificação
-            int index = simbolos.insertSymbol(
-                    lexeme,
-                    TokenType.IDENTIFIER,
-                    lenBefore,
-                    maxLen,
-                    token.getLine()
-            );
-            // se quiser fazer algo com o índice, pode usar aqui
-        } else {
-            simbolos.registerOccurrence(existingIndex, token.getLine());
-        }
-    }
 }
-

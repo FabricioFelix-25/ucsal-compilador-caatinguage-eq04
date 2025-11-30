@@ -1,0 +1,25 @@
+program TesteErrosLexicos
+declarations
+    integer x;
+    string  msg;
+endDeclarations
+functions
+
+void funcaoComErros( )
+{
+    // 1) String não fechada -> seu Lexer deve lançar exceção ou encerrar com ERROR
+    msg := "String que nunca fecha...
+
+    // 2) Caractere inválido / símbolo estranho
+    x := 10 @ 20;
+
+    // 3) Comentário de bloco que nunca fecha
+    /* Comentário que abre e
+       nunca fecha
+
+    // 4) Caractere mal formado
+    msg := 'A;
+}
+
+endFunctions
+endProgram
