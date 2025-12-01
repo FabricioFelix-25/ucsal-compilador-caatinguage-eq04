@@ -1,7 +1,7 @@
 package br.ucsal.caatinguage.tabela;
 
 public enum SymbolType {
-    NO_TYPE("-"); // por enquanto "sem tipo", depois vocês podem ter VARIABLE, FUNCTION, PARAM, etc.
+    NO_TYPE("-");
 
     private final String code;
 
