@@ -1,0 +1,28 @@
+Documentação (Manuais e Projeto)
+
+1. Manual de Instalação e Uso
+Título: Manual de Instalação e Uso - Static Checker Caatinguage2025-2 Equipe: EQ04
+
+1. Requisitos de Sistema
+
+Java Development Kit (JDK) 21 ou superior instalado.
+
+Sistema Operacional: Windows, Linux ou macOS.
+
+2. Instalação O Static Checker é distribuído como um código-fonte Java ou arquivo .jar.
+
+Se for código-fonte: Descompacte a pasta do projeto. Certifique-se de que a estrutura de pastas br/ucsal/caatinguage/... esteja preservada.
+
+3. Como Usar O compilador:
+ Coloque seu arquivo de código fonte (ex: Teste.252) na mesma pasta onde executará o compilador.
+
+ Execute o Projeto principal MainStaticChecker, vc vera a seguinte mensagem no console: "Informe o nome do arquivo fonte (.252):"
+ O sistema processará o arquivo e gerará dois relatórios na mesma pasta:
+    Teste.LEX: Relatório da análise léxica.
+    Teste.TAB: Relatório da tabela de símbolos.
+
+4. Interpretação dos Resultados
+
+Arquivo .LEX: Lista sequencialmente todos os tokens encontrados, com seus lexemas, códigos e linhas. Mensagens de erro léxico também aparecerão aqui.
+
+Arquivo .TAB: Lista todos os identificadores únicos encontrados, com informações de truncagem, tipo e as 5 primeiras linhas de ocorrência.
