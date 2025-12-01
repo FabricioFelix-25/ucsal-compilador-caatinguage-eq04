@@ -13,19 +13,13 @@ Sistema Operacional: Windows, Linux ou macOS.
 
 Se for código-fonte: Descompacte a pasta do projeto. Certifique-se de que a estrutura de pastas br/ucsal/caatinguage/... esteja preservada.
 
-Compilação: Navegue até a raiz do projeto (onde está a pasta src) e execute: javac -d bin src/main/java/br/ucsal/caatinguage/sintatico/MainStaticChecker.java
+3. Como Usar O compilador:
+ Coloque seu arquivo de código fonte (ex: Teste.252) na mesma pasta onde executará o compilador.
 
-3. Como Usar O compilador é executado via linha de comando e recebe como argumento o nome base do arquivo fonte (sem a extensão .252).
-
-Coloque seu arquivo de código fonte (ex: Teste.252) na mesma pasta onde executará o compilador.
-
-Execute o comando: java -cp bin br.ucsal.caatinguage.sintatico.MainStaticChecker Teste
-
-O sistema processará o arquivo e gerará dois relatórios na mesma pasta:
-
-Teste.LEX: Relatório da análise léxica.
-
-Teste.TAB: Relatório da tabela de símbolos.
+ Execute o Projeto principal MainStaticChecker, vc vera a seguinte mensagem no console: "Informe o nome do arquivo fonte (.252):"
+ O sistema processará o arquivo e gerará dois relatórios na mesma pasta:
+    Teste.LEX: Relatório da análise léxica.
+    Teste.TAB: Relatório da tabela de símbolos.
 
 4. Interpretação dos Resultados
 
